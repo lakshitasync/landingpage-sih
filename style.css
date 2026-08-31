@@ -1,4 +1,4 @@
-/* Clean, Simple & Modern Stylesheet for SkillBridge */
+/* Clean, Simple & Modern Stylesheet */
 
 * {
   box-sizing: border-box;
@@ -6,38 +6,55 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
+body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  color: #1e293b;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', sans-serif;
+/* Sidebar navigation item active state */
+.sidebar-link {
+  transition: all 0.15s ease-in-out;
 }
 
-/* Simple clean card hover effect */
-.clean-card {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+.sidebar-link:hover {
+  background-color: #f1f5f9;
+  color: #047857;
 }
 
-.clean-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
-  border-color: #cbd5e1;
+.sidebar-link.active {
+  background-color: #ecfdf5;
+  color: #047857;
+  font-weight: 600;
+}
+
+/* Dashboard Section switching */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Simple Modal */
-.modal-overlay {
+.modal {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-.modal-overlay.open {
+.modal.open {
   opacity: 1;
   visibility: visible;
 }

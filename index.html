@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkillBridge | Academia–Industry Collaboration</title>
-  <meta name="description" content="Bridging the gap between Academia and Industry through skills, internships and career opportunities.">
+  <title>SkillBridge | Clinical Training & Internship Portal</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -22,11 +21,12 @@
           },
           colors: {
             brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              900: '#1e3a8a',
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
             }
           }
         }
@@ -34,343 +34,759 @@
     }
   </script>
 
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .modal {
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-    }
-    .modal.open {
-      opacity: 1;
-      visibility: visible;
-    }
-  </style>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-white text-slate-800 antialiased flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
   <!-- ========================================================================= -->
-  <!-- NAVBAR                                                                    -->
+  <!-- 1. SIMPLE LANDING PAGE                                                    -->
   <!-- ========================================================================= -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
+  <div id="landing-view" class="flex flex-col min-h-screen">
+    
+    <!-- Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+      <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         
-        <!-- LOGO -->
-        <a href="#home" class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded bg-brand-600 flex items-center justify-center text-white font-bold text-sm">
-            SB
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">
+            🌿
           </div>
-          <span class="text-xl font-bold tracking-tight text-slate-900">SkillBridge</span>
-        </a>
+          <span class="text-lg font-bold text-slate-900">SkillBridge</span>
+        </div>
 
-        <!-- NAV LINKS -->
-        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-          <a href="#home" class="hover:text-brand-600 transition-colors">Home</a>
-          <a href="#about" class="hover:text-brand-600 transition-colors">About</a>
-          <a href="#features" class="hover:text-brand-600 transition-colors">Features</a>
-          <a href="#contact" class="hover:text-brand-600 transition-colors">Contact</a>
+        <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-600">
+          <a href="#home" class="hover:text-brand-600">Home</a>
+          <a href="#features" class="hover:text-brand-600">Modules</a>
+          <a href="#about" class="hover:text-brand-600">About</a>
         </nav>
 
-        <!-- AUTH BUTTONS -->
-        <div class="hidden sm:flex items-center gap-3">
-          <button class="open-login-modal text-sm font-semibold text-slate-700 hover:text-brand-600 px-3 py-1.5 transition-colors">
+        <div class="flex items-center gap-3">
+          <button class="open-login text-xs font-semibold text-slate-700 hover:text-brand-600 px-3 py-1.5 transition-colors">
             Login
           </button>
-          <button class="open-signup-modal text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 px-4 py-2 rounded-lg transition-colors">
+          <button class="open-signup px-4 py-2 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-lg transition-colors shadow-xs">
             Sign Up
+          </button>
+          <button class="open-dashboard hidden sm:inline-flex px-3.5 py-2 text-xs font-bold text-brand-700 bg-brand-50 hover:bg-brand-100 rounded-lg transition-colors">
+            Dashboard →
           </button>
         </div>
 
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="p-2 text-slate-600 hover:text-slate-900 md:hidden">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-
       </div>
-    </div>
+    </header>
 
-    <!-- Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200 px-4 py-3 space-y-2 text-sm">
-      <a href="#home" class="block py-1 text-slate-700 hover:text-brand-600">Home</a>
-      <a href="#about" class="block py-1 text-slate-700 hover:text-brand-600">About</a>
-      <a href="#features" class="block py-1 text-slate-700 hover:text-brand-600">Features</a>
-      <a href="#contact" class="block py-1 text-slate-700 hover:text-brand-600">Contact</a>
-      <div class="pt-2 border-t border-slate-100 flex gap-2">
-        <button class="open-login-modal flex-1 py-1.5 text-center font-semibold text-slate-700 bg-slate-100 rounded">Login</button>
-        <button class="open-signup-modal flex-1 py-1.5 text-center font-semibold text-white bg-brand-600 rounded">Sign Up</button>
-      </div>
-    </div>
-  </header>
-
-
-  <!-- ========================================================================= -->
-  <!-- HERO SECTION                                                              -->
-  <!-- ========================================================================= -->
-  <section id="home" class="py-16 md:py-24 bg-gradient-to-b from-slate-50 to-white text-center border-b border-slate-200">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      
-      <!-- Subtitle -->
-      <span class="text-xs sm:text-sm font-bold tracking-widest text-brand-600 uppercase mb-3 block">
-        CONNECT. LEARN. GROW.
-      </span>
-
-      <!-- Main Headline -->
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight max-w-3xl mx-auto leading-tight mb-6">
-        Bridging the gap between Academia and Industry through skills, internships and career opportunities.
-      </h1>
-
-      <!-- CTA Buttons -->
-      <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
-        <button class="open-signup-modal px-6 py-3 text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-lg shadow-sm transition-colors">
-          Get Started
-        </button>
-        <a href="#features" class="px-6 py-3 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg shadow-sm transition-colors">
-          Explore
-        </a>
-      </div>
-
-      <!-- Students ↔ Industry Graphic -->
-      <div class="inline-flex items-center justify-center gap-6 sm:gap-10 bg-white border border-slate-200 shadow-sm rounded-xl px-6 py-4">
-        
-        <div class="flex flex-col items-center">
-          <span class="text-3xl sm:text-4xl mb-1">🎓</span>
-          <span class="text-sm font-bold text-slate-900">Students</span>
-          <span class="text-[11px] text-slate-500">Learn & Upskill</span>
-        </div>
-
-        <div class="text-xl sm:text-2xl font-bold text-brand-600">
-          ↔
-        </div>
-
-        <div class="flex flex-col items-center">
-          <span class="text-3xl sm:text-4xl mb-1">🏢</span>
-          <span class="text-sm font-bold text-slate-900">Industry</span>
-          <span class="text-[11px] text-slate-500">Hire & Mentor</span>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ========================================================================= -->
-  <!-- WHY THIS PLATFORM? SECTION                                                -->
-  <!-- ========================================================================= -->
-  <section id="features" class="py-16 md:py-20 bg-white border-b border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center mb-12">
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-          WHY THIS PLATFORM?
-        </h2>
-        <p class="text-slate-600 text-sm mt-2">
-          A single ecosystem powering every step of career readiness and collaboration.
+    <!-- Hero -->
+    <section id="home" class="py-16 md:py-20 text-center bg-gradient-to-b from-brand-50/50 to-white border-b border-slate-200 px-4">
+      <div class="max-w-3xl mx-auto">
+        <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block mb-2">Smart India Hackathon 2026</span>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+          Clinical Training & Internship Management System
+        </h1>
+        <p class="text-slate-600 text-sm sm:text-base mb-8 max-w-2xl mx-auto">
+          A simple, unified portal connecting medical and clinical interns with hospital training centres, specialty protocols, bedside logbooks, and classical databases.
         </p>
+        <div class="flex items-center justify-center gap-3">
+          <button class="open-dashboard px-6 py-3 text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-lg shadow-sm transition-colors">
+            Launch Dashboard (20 Modules) →
+          </button>
+        </div>
       </div>
+    </section>
 
-      <!-- 6 Clean Feature Cards (Skill Mapping | Internships | Placements | Training | Mentorship | Collaboration) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        
-        <!-- 1. Skill Mapping -->
-        <div class="p-6 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-brand-600 hover:shadow-sm transition-all">
-          <div class="text-2xl mb-3">🎯</div>
-          <h3 class="text-base font-bold text-slate-900 mb-1">Skill Mapping</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Assess your current skills, benchmark against industry standards, and identify key gaps.
-          </p>
+    <!-- Features Overview -->
+    <section id="features" class="py-12 bg-white border-b border-slate-200 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-8">
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900">What's in the Dashboard?</h2>
+          <p class="text-slate-500 text-xs mt-1">20 integrated modules for clinical learning, tracking, and certification.</p>
         </div>
 
-        <!-- 2. Internships -->
-        <div class="p-6 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-brand-600 hover:shadow-sm transition-all">
-          <div class="text-2xl mb-3">💼</div>
-          <h3 class="text-base font-bold text-slate-900 mb-1">Internships</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Discover and apply for relevant, high-impact internships matching your skill level.
-          </p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-brand-50 cursor-pointer open-dashboard">
+            <span class="text-xl block mb-1">🏛️</span>
+            <h3 class="font-bold text-slate-900">Training Centres</h3>
+            <p class="text-slate-500 mt-0.5">Hospital directory & capacity</p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-brand-50 cursor-pointer open-dashboard">
+            <span class="text-xl block mb-1">🩺</span>
+            <h3 class="font-bold text-slate-900">Clinical Training</h3>
+            <p class="text-slate-500 mt-0.5">Bedside case logbook</p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-brand-50 cursor-pointer open-dashboard">
+            <span class="text-xl block mb-1">🌿</span>
+            <h3 class="font-bold text-slate-900">Panchakarma</h3>
+            <p class="text-slate-500 mt-0.5">5 Classical karma protocols</p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-brand-50 cursor-pointer open-dashboard">
+            <span class="text-xl block mb-1">🧪</span>
+            <h3 class="font-bold text-slate-900">Medicines & Herbs</h3>
+            <p class="text-slate-500 mt-0.5">Dravyaguna & formulations</p>
+          </div>
         </div>
-
-        <!-- 3. Placements -->
-        <div class="p-6 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-brand-600 hover:shadow-sm transition-all">
-          <div class="text-2xl mb-3">🚀</div>
-          <h3 class="text-base font-bold text-slate-900 mb-1">Placements</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Connect directly with hiring partners and recruiters for full-time career roles.
-          </p>
-        </div>
-
-        <!-- 4. Training -->
-        <div class="p-6 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-brand-600 hover:shadow-sm transition-all">
-          <div class="text-2xl mb-3">📚</div>
-          <h3 class="text-base font-bold text-slate-900 mb-1">Training</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Access curated courses, practical certifications, and workshops to close skill gaps.
-          </p>
-        </div>
-
-        <!-- 5. Mentorship -->
-        <div class="p-6 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-brand-600 hover:shadow-sm transition-all">
-          <div class="text-2xl mb-3">👥</div>
-          <h3 class="text-base font-bold text-slate-900 mb-1">Mentorship</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Get 1-on-1 guidance from industry leaders, technical mentors, and alumni networks.
-          </p>
-        </div>
-
-        <!-- 6. Collaboration -->
-        <div class="p-6 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-brand-600 hover:shadow-sm transition-all">
-          <div class="text-2xl mb-3">🤝</div>
-          <h3 class="text-base font-bold text-slate-900 mb-1">Collaboration</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Foster institutional partnerships, joint capstones, guest lectures, and live projects.
-          </p>
-        </div>
-
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Footer -->
+    <footer id="about" class="bg-slate-900 text-slate-400 text-xs py-6 mt-auto px-4">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+        <div>
+          <span class="text-sm font-bold text-white block">SkillBridge</span>
+          <span class="text-[11px] text-slate-500">Smart India Hackathon SIH26044</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <button class="open-dashboard text-brand-100 font-bold hover:underline">Go to Dashboard</button>
+        </div>
+      </div>
+    </footer>
+
+  </div>
 
 
   <!-- ========================================================================= -->
-  <!-- HOW IT WORKS SECTION                                                      -->
+  <!-- 2. SIMPLE, CLEAN DASHBOARD SYSTEM (20 MODULES)                            -->
   <!-- ========================================================================= -->
-  <section id="about" class="py-16 md:py-20 bg-slate-50 border-b border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div id="dashboard-view" class="hidden flex-1 flex flex-col min-h-screen bg-slate-100">
+    
+    <div class="flex-1 flex min-h-screen">
       
-      <div class="text-center mb-12">
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-          HOW IT WORKS
-        </h2>
-        <p class="text-slate-600 text-sm mt-2">
-          Your streamlined 4-step path from learning to career success.
-        </p>
-      </div>
-
-      <!-- 4-Step Linear Flow -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- ===================================================================== -->
+      <!-- LEFT SIDEBAR (ALL 20 REQUESTED ITEMS)                                 -->
+      <!-- ===================================================================== -->
+      <aside id="sidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col shrink-0">
         
-        <!-- Step 1 -->
-        <div class="p-6 rounded-xl bg-white border border-slate-200 text-center relative">
-          <div class="w-8 h-8 rounded-full bg-brand-50 text-brand-600 font-bold text-xs flex items-center justify-center mx-auto mb-3">
-            1
+        <!-- Header -->
+        <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded bg-brand-600 text-white flex items-center justify-center font-bold text-xs">
+              🌿
+            </div>
+            <span class="font-bold text-sm text-slate-900">SkillBridge</span>
           </div>
-          <h3 class="text-sm font-bold text-slate-900 mb-1">Create Profile</h3>
-          <p class="text-xs text-slate-600">
-            Set up your academic and professional credentials.
-          </p>
+          <button class="open-landing text-slate-400 hover:text-slate-700 text-xs" title="Back to Home">
+            ✕
+          </button>
         </div>
 
-        <!-- Step 2 -->
-        <div class="p-6 rounded-xl bg-white border border-slate-200 text-center relative">
-          <div class="w-8 h-8 rounded-full bg-brand-50 text-brand-600 font-bold text-xs flex items-center justify-center mx-auto mb-3">
-            2
+        <!-- User Badge -->
+        <div class="p-3 m-2 bg-slate-50 rounded-lg border border-slate-200 flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">
+            👨⚕️
           </div>
-          <h3 class="text-sm font-bold text-slate-900 mb-1">Assess Skills</h3>
-          <p class="text-xs text-slate-600">
-            Take assessments to map strengths and uncover gaps.
-          </p>
+          <div class="overflow-hidden">
+            <span class="text-xs font-bold text-slate-900 block truncate">Dr. Rohan Sharma</span>
+            <span class="text-[10px] text-slate-500 block truncate">BAMS Intern • NIA</span>
+          </div>
         </div>
 
-        <!-- Step 3 -->
-        <div class="p-6 rounded-xl bg-white border border-slate-200 text-center relative">
-          <div class="w-8 h-8 rounded-full bg-brand-50 text-brand-600 font-bold text-xs flex items-center justify-center mx-auto mb-3">
-            3
+        <!-- 20 Sidebar Links -->
+        <nav class="flex-1 overflow-y-auto px-2 py-2 space-y-0.5 text-xs">
+          
+          <a href="#" data-tab="training-centres" class="sidebar-link active flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>🏛️</span> Training Centres
+          </a>
+
+          <a href="#" data-tab="clinical-training" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>🩺</span> Clinical Training
+          </a>
+
+          <a href="#" data-tab="panchakarma" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>🌿</span> Panchakarma
+          </a>
+
+          <a href="#" data-tab="courses-learning" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>📚</span> Courses & Learning
+          </a>
+
+          <a href="#" data-tab="doctors-mentors" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>👨⚕️</span> Doctors / Mentors
+          </a>
+
+          <a href="#" data-tab="internship-schedule" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>📅</span> Internship Schedule
+          </a>
+
+          <a href="#" data-tab="applications" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>📝</span> Applications
+          </a>
+
+          <a href="#" data-tab="my-progress" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>📊</span> My Progress
+          </a>
+
+          <a href="#" data-tab="case-studies" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>📋</span> Case Studies
+          </a>
+
+          <a href="#" data-tab="resources-library" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>📖</span> Resources / Library
+          </a>
+
+          <a href="#" data-tab="medicines-formulations" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>🧪</span> Medicines & Formulations
+          </a>
+
+          <a href="#" data-tab="herbs-garden" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>🌱</span> Herbs & Herbal Garden
+          </a>
+
+          <a href="#" data-tab="yoga-wellness" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>🧘</span> Yoga & Wellness
+          </a>
+
+          <a href="#" data-tab="reviews-testimonials" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>⭐</span> Reviews & Testimonials
+          </a>
+
+          <a href="#" data-tab="certificates" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>🏆</span> Certificates
+          </a>
+
+          <a href="#" data-tab="messages" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>💬</span> Messages
+          </a>
+
+          <a href="#" data-tab="help-faq" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>❓</span> Help / FAQ
+          </a>
+
+          <!-- Bottom Account Section -->
+          <div class="pt-2 my-1 border-t border-slate-200"></div>
+
+          <a href="#" data-tab="my-profile" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>👤</span> My Profile
+          </a>
+
+          <a href="#" data-tab="settings" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700">
+            <span>⚙️</span> Settings
+          </a>
+
+          <a href="#" data-tab="logout" class="sidebar-link flex items-center gap-2.5 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50">
+            <span>🚪</span> Logout
+          </a>
+
+        </nav>
+
+      </aside>
+
+      <!-- ===================================================================== -->
+      <!-- MAIN WORKSPACE CONTENT                                                -->
+      <!-- ===================================================================== -->
+      <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        
+        <!-- Top Bar -->
+        <div class="bg-white border-b border-slate-200 px-6 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <button id="menu-btn" class="lg:hidden p-1.5 text-slate-600 hover:bg-slate-100 rounded">
+              ☰
+            </button>
+            <h2 id="page-title" class="text-base sm:text-lg font-bold text-slate-900">
+              Training Centres
+            </h2>
           </div>
-          <h3 class="text-sm font-bold text-slate-900 mb-1">Find Opportunities</h3>
-          <p class="text-xs text-slate-600">
-            Discover matched internships, courses, and projects.
-          </p>
+
+          <div class="flex items-center gap-3">
+            <input type="text" id="search-input" placeholder="Search in view..." class="hidden sm:block px-3 py-1.5 bg-slate-100 text-xs rounded-lg border border-slate-200 outline-none focus:bg-white focus:border-brand-600">
+            
+            <button class="open-modal-btn px-3 py-1.5 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-lg transition-colors shadow-xs">
+              + New Entry
+            </button>
+            
+            <button class="open-landing text-xs text-slate-500 hover:text-slate-800">
+              Home 🏠
+            </button>
+          </div>
         </div>
 
-        <!-- Step 4 -->
-        <div class="p-6 rounded-xl bg-white border border-slate-200 text-center relative">
-          <div class="w-8 h-8 rounded-full bg-brand-50 text-brand-600 font-bold text-xs flex items-center justify-center mx-auto mb-3">
-            4
+        <!-- Dynamic Content Sections (20 Modules) -->
+        <div class="p-6 space-y-6">
+
+          <!-- 1. Training Centres -->
+          <div id="tab-training-centres" class="tab-content active space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="searchable-item p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-xs font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded">NABH Accredited</span>
+                <h3 class="text-sm font-bold text-slate-900 mt-2">National Institute of Ayurveda (NIA)</h3>
+                <p class="text-xs text-slate-500">Jaipur, Rajasthan • 350 Beds</p>
+                <p class="text-xs text-slate-600 mt-2">Specialty: Panchakarma & Kayachikitsa</p>
+                <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+                  <span class="font-bold text-slate-700">₹22,500 / mo</span>
+                  <button class="open-modal-btn text-brand-600 font-bold hover:underline">Apply Now →</button>
+                </div>
+              </div>
+
+              <div class="searchable-item p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-xs font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded">Apex Institute</span>
+                <h3 class="text-sm font-bold text-slate-900 mt-2">All India Institute of Ayurveda (AIIA)</h3>
+                <p class="text-xs text-slate-500">New Delhi • 200 Beds + ICU</p>
+                <p class="text-xs text-slate-600 mt-2">Specialty: Integrative Medicine & Research</p>
+                <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+                  <span class="font-bold text-slate-700">₹24,000 / mo</span>
+                  <button class="open-modal-btn text-brand-600 font-bold hover:underline">Apply Now →</button>
+                </div>
+              </div>
+
+              <div class="searchable-item p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-xs font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded">State Centre</span>
+                <h3 class="text-sm font-bold text-slate-900 mt-2">Govt Ayurveda College Hospital</h3>
+                <p class="text-xs text-slate-500">Thiruvananthapuram, Kerala • 320 Beds</p>
+                <p class="text-xs text-slate-600 mt-2">Specialty: Classical Keraleeya Panchakarma</p>
+                <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+                  <span class="font-bold text-slate-700">₹18,500 / mo</span>
+                  <button class="open-modal-btn text-brand-600 font-bold hover:underline">Apply Now →</button>
+                </div>
+              </div>
+            </div>
           </div>
-          <h3 class="text-sm font-bold text-slate-900 mb-1">Get Hired</h3>
-          <p class="text-xs text-slate-600">
-            Apply with a verified portfolio and secure placement.
-          </p>
+
+          <!-- 2. Clinical Training -->
+          <div id="tab-clinical-training" class="tab-content space-y-4">
+            <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs">
+              <div class="p-4 border-b border-slate-200 flex justify-between items-center">
+                <h3 class="text-sm font-bold text-slate-900">Bedside Clinical Logbook</h3>
+                <span class="text-xs text-slate-500">Total Logged: 148 Cases</span>
+              </div>
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
+                  <tr>
+                    <th class="p-3">Log ID</th>
+                    <th class="p-3">Department</th>
+                    <th class="p-3">Patient / Diagnosis</th>
+                    <th class="p-3">Ayurvedic Treatment</th>
+                    <th class="p-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr class="searchable-item hover:bg-slate-50">
+                    <td class="p-3 font-mono font-bold text-brand-700">LOG-101</td>
+                    <td class="p-3">Kayachikitsa OPD</td>
+                    <td class="p-3">PT-8942 • Sandhigata Vata (OA)</td>
+                    <td class="p-3">Yogaraj Guggulu, Janu Basti</td>
+                    <td class="p-3"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">Verified</span></td>
+                  </tr>
+                  <tr class="searchable-item hover:bg-slate-50">
+                    <td class="p-3 font-mono font-bold text-brand-700">LOG-102</td>
+                    <td class="p-3">Panchakarma IPD</td>
+                    <td class="p-3">PT-8930 • Kitibha Kushta (Psoriasis)</td>
+                    <td class="p-3">Classical Vamana Karma</td>
+                    <td class="p-3"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">Verified</span></td>
+                  </tr>
+                  <tr class="searchable-item hover:bg-slate-50">
+                    <td class="p-3 font-mono font-bold text-brand-700">LOG-103</td>
+                    <td class="p-3">Shalya Minor OT</td>
+                    <td class="p-3">PT-8915 • Arsha (Piles)</td>
+                    <td class="p-3">Ksharasutra Ligation</td>
+                    <td class="p-3"><span class="px-2 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">Pending</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 3. Panchakarma -->
+          <div id="tab-panchakarma" class="tab-content space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-lg">🌊</span>
+                <h4 class="font-bold text-slate-900 mt-1">1. Vamana Karma (Therapeutic Emesis)</h4>
+                <p class="text-slate-500 mt-0.5">Indications: Kapha disorders, Psoriasis, Bronchial Asthma.</p>
+                <p class="text-slate-700 mt-2"><b>Protocol:</b> Snehapana (Mahatiktaka Ghrita) → Madanaphala Yoga → Samsarjana Krama.</p>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-lg">🌿</span>
+                <h4 class="font-bold text-slate-900 mt-1">2. Virechana Karma (Purgation)</h4>
+                <p class="text-slate-500 mt-0.5">Indications: Pitta disorders, Liver pathologies, Chronic Dermatitis.</p>
+                <p class="text-slate-700 mt-2"><b>Protocol:</b> Deepana-Pachana → Trivrit Lehyam / Icchabhedi Rasa administration.</p>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-lg">💧</span>
+                <h4 class="font-bold text-slate-900 mt-1">3. Basti Karma (Medicated Enemas)</h4>
+                <p class="text-slate-500 mt-0.5">Indications: Vata disorders, Sciatica, Hemiplegia, Arthritis.</p>
+                <p class="text-slate-700 mt-2"><b>Protocol:</b> Kala/Karma Basti (Niruha + Anuvasana Basti alternation).</p>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-lg">🌸</span>
+                <h4 class="font-bold text-slate-900 mt-1">4. Nasya & 5. Raktamokshana</h4>
+                <p class="text-slate-500 mt-0.5">Indications: ENT/Head disorders & Blood purification (Jalaukavacharana / Leech).</p>
+                <p class="text-slate-700 mt-2"><b>Protocol:</b> Anu Taila installation (Nasya) and sterile medicinal leech therapy.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Courses & Learning -->
+          <div id="tab-courses-learning" class="tab-content space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-[10px] font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded">Active Module</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Clinical Nadi Pariksha Masterclass</h4>
+                <p class="text-slate-500 mt-1">12 Video modules by Prof. R. Sharma • 75% completed</p>
+                <div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
+                  <div class="bg-brand-600 h-2 rounded-full" style="width: 75%"></div>
+                </div>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">CME Certified</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Ksharasutra Anorectal Surgical SOPs</h4>
+                <p class="text-slate-500 mt-1">8 Modules on fistula & pile mass ligation • 40% completed</p>
+                <div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 40%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Doctors / Mentors -->
+          <div id="tab-doctors-mentors" class="tab-content space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-2xl">👨⚕️</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Prof. (Dr.) Rajeshwar Sharma</h4>
+                <p class="text-slate-500">Head of Kayachikitsa • NIA Jaipur (32 yrs exp)</p>
+                <p class="text-brand-700 font-bold mt-2">⭐ 4.9 Rating • 240+ Interns Guided</p>
+                <button class="open-modal-btn w-full mt-3 py-1.5 bg-brand-50 text-brand-700 hover:bg-brand-100 rounded font-bold transition-colors">Book 1-on-1 Slot 📅</button>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-2xl">👨⚕️</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Dr. Vikramaditya Joshi</h4>
+                <p class="text-slate-500">Panchakarma & Neuro Rehab • AIIA Delhi</p>
+                <p class="text-brand-700 font-bold mt-2">⭐ 5.0 Rating • 180+ Interns Guided</p>
+                <button class="open-modal-btn w-full mt-3 py-1.5 bg-brand-50 text-brand-700 hover:bg-brand-100 rounded font-bold transition-colors">Book 1-on-1 Slot 📅</button>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-2xl">👩⚕️</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Dr. Ananya Namboodiri</h4>
+                <p class="text-slate-500">MS (Ayu) Shalya Tantra • Govt Ayu Kerala</p>
+                <p class="text-brand-700 font-bold mt-2">⭐ 4.8 Rating • 150+ Interns Guided</p>
+                <button class="open-modal-btn w-full mt-3 py-1.5 bg-brand-50 text-brand-700 hover:bg-brand-100 rounded font-bold transition-colors">Book 1-on-1 Slot 📅</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Internship Schedule -->
+          <div id="tab-internship-schedule" class="tab-content space-y-3 text-xs">
+            <div class="p-3.5 bg-white rounded-xl border border-slate-200 flex justify-between items-center shadow-xs">
+              <div>
+                <span class="font-bold text-slate-900 block">Monday (Today) • 08:00 AM - 01:00 PM</span>
+                <span class="text-slate-500">Kayachikitsa OPD 4 (Room 102) • General Patient Consultations</span>
+              </div>
+              <span class="px-2 py-1 bg-emerald-100 text-emerald-800 font-bold rounded">Active Shift</span>
+            </div>
+            <div class="p-3.5 bg-white rounded-xl border border-slate-200 flex justify-between items-center shadow-xs">
+              <div>
+                <span class="font-bold text-slate-900 block">Tuesday • 08:00 AM - 01:00 PM</span>
+                <span class="text-slate-500">Panchakarma Unit (Room 3) • Anuvasana Basti Monitoring</span>
+              </div>
+              <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded">Upcoming</span>
+            </div>
+            <div class="p-3.5 bg-white rounded-xl border border-slate-200 flex justify-between items-center shadow-xs">
+              <div>
+                <span class="font-bold text-slate-900 block">Wednesday • 08:00 AM - 01:00 PM</span>
+                <span class="text-slate-500">Shalya Tantra Minor OT • Ksharasutra Ligation Assistance</span>
+              </div>
+              <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded">Upcoming</span>
+            </div>
+          </div>
+
+          <!-- 7. Applications -->
+          <div id="tab-applications" class="tab-content space-y-3 text-xs">
+            <div class="p-4 bg-white rounded-xl border border-slate-200 flex justify-between items-center shadow-xs">
+              <div>
+                <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded text-[10px]">Approved</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">National Institute of Ayurveda (NIA), Jaipur</h4>
+                <p class="text-slate-500">Posting: Apex Clinical Rotation • Reporting: 15 Sep 2026</p>
+              </div>
+              <button onclick="alert('Downloading appointment offer letter...')" class="px-3 py-1.5 bg-brand-600 text-white font-bold rounded">Download Letter 📥</button>
+            </div>
+            <div class="p-4 bg-white rounded-xl border border-slate-200 flex justify-between items-center shadow-xs">
+              <div>
+                <span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-bold rounded text-[10px]">Under Review</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">All India Institute of Ayurveda (AIIA), New Delhi</h4>
+                <p class="text-slate-500">Posting: Panchakarma Super-Specialty</p>
+              </div>
+              <span class="text-slate-400">Dean Office Verification</span>
+            </div>
+          </div>
+
+          <!-- 8. My Progress -->
+          <div id="tab-my-progress" class="tab-content space-y-4 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-slate-500">Clinical Hours</span>
+                <div class="text-2xl font-bold text-slate-900 my-1">420 / 600 hrs</div>
+                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                  <div class="bg-brand-600 h-2 rounded-full" style="width: 70%"></div>
+                </div>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-slate-500">Attendance Rate</span>
+                <div class="text-2xl font-bold text-emerald-700 my-1">94.2%</div>
+                <span class="text-slate-400">✓ Above 90% NCISM threshold</span>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-slate-500">Total Cases Logged</span>
+                <div class="text-2xl font-bold text-brand-700 my-1">148 Cases</div>
+                <span class="text-slate-400">46 Panchakarma therapies</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. Case Studies -->
+          <div id="tab-case-studies" class="tab-content space-y-3 text-xs">
+            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+              <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Peer Reviewed</span>
+              <h4 class="font-bold text-slate-900 text-sm mt-1">Management of Sciatica (Gridhrasi) using Siravyadha & Erandmooladi Basti</h4>
+              <p class="text-slate-500 mt-1">54-year-old male with severe radiating pain achieved 85% pain relief within 14 days.</p>
+              <button onclick="alert('Case PDF downloading...')" class="mt-2 text-brand-600 font-bold hover:underline">Download Full Case Report 📄</button>
+            </div>
+            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+              <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Verified Report</span>
+              <h4 class="font-bold text-slate-900 text-sm mt-1">Clinical Resolution of Plaque Psoriasis (Kitibha Kushta) via Vamana</h4>
+              <p class="text-slate-500 mt-1">PASI-75 clearance observed after classical Madanaphala Vamana & Takradhara.</p>
+              <button onclick="alert('Case PDF downloading...')" class="mt-2 text-brand-600 font-bold hover:underline">Download Full Case Report 📄</button>
+            </div>
+          </div>
+
+          <!-- 10. Resources / Library -->
+          <div id="tab-resources-library" class="tab-content space-y-3 text-xs">
+            <div class="p-3.5 bg-white rounded-xl border border-slate-200 flex justify-between items-center shadow-xs">
+              <div>
+                <span class="font-bold text-slate-900">📖 Charaka Samhita (Mula + English Commentary)</span>
+                <span class="text-slate-400 block">Sutra, Nidana, Chikitsa Sthana (24.5 MB PDF)</span>
+              </div>
+              <button onclick="alert('Downloading Charaka Samhita PDF...')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded font-bold text-slate-700">Download</button>
+            </div>
+            <div class="p-3.5 bg-white rounded-xl border border-slate-200 flex justify-between items-center shadow-xs">
+              <div>
+                <span class="font-bold text-slate-900">📖 Ayurvedic Pharmacopoeia of India (API Vol I-IX)</span>
+                <span class="text-slate-400 block">Official Government Quality Standards (42.0 MB PDF)</span>
+              </div>
+              <button onclick="alert('Downloading API PDF...')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded font-bold text-slate-700">Download</button>
+            </div>
+          </div>
+
+          <!-- 11. Medicines & Formulations -->
+          <div id="tab-medicines-formulations" class="tab-content space-y-4 text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="font-mono text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-bold">Vati / Guggulu</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Yogaraj Guggulu</h4>
+                <p class="text-slate-500 mt-1"><b>Dose:</b> 2 tabs twice daily with warm water / Rasnadi Kwath.</p>
+                <p class="text-slate-600 mt-1"><b>Indications:</b> Sandhigata Vata, Amavata, Sciatica.</p>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="font-mono text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-bold">Rasayana Avaleha</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Chyawanprash Avaleha</h4>
+                <p class="text-slate-500 mt-1"><b>Dose:</b> 12-24g with warm milk in morning.</p>
+                <p class="text-slate-600 mt-1"><b>Indications:</b> Immunity, Respiratory health, Debility.</p>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="font-mono text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-bold">Asava-Arishta</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Balarishta</h4>
+                <p class="text-slate-500 mt-1"><b>Dose:</b> 15-30ml with equal water after meals.</p>
+                <p class="text-slate-600 mt-1"><b>Indications:</b> Vata Vyadhi, Hemiplegia, Neuropathy.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 12. Herbs & Herbal Garden -->
+          <div id="tab-herbs-garden" class="tab-content space-y-4 text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="searchable-item p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-2xl">🌿</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Ashwagandha</h4>
+                <p class="italic text-brand-700 font-medium">Withania somnifera</p>
+                <p class="text-slate-600 mt-2"><b>Rasa:</b> Tikta, Kashaya • <b>Veerya:</b> Ushna</p>
+                <p class="text-slate-500 mt-1">Balya, Rasayana, Vata-Kapha Shamaka.</p>
+              </div>
+              <div class="searchable-item p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-2xl">🌱</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Guduchi (Giloy)</h4>
+                <p class="italic text-brand-700 font-medium">Tinospora cordifolia</p>
+                <p class="text-slate-600 mt-2"><b>Rasa:</b> Tikta, Kashaya • <b>Veerya:</b> Ushna</p>
+                <p class="text-slate-500 mt-1">Tridoshahara, Jwaraghna, Immunomodulator.</p>
+              </div>
+              <div class="searchable-item p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-2xl">🍀</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Brahmi</h4>
+                <p class="italic text-brand-700 font-medium">Bacopa monnieri</p>
+                <p class="text-slate-600 mt-2"><b>Rasa:</b> Tikta, Madhura • <b>Veerya:</b> Sheeta</p>
+                <p class="text-slate-500 mt-1">Medhya (Cognitive booster), Pitta Hara.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 13. Yoga & Wellness -->
+          <div id="tab-yoga-wellness" class="tab-content space-y-4 text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-xl">🧘</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Bhujangasana (Cobra Pose)</h4>
+                <p class="text-slate-500 mt-1">For Gridhrasi (Sciatica) & Lumbar Spondylosis • 30s Hold</p>
+              </div>
+              <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+                <span class="text-xl">🧘</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Nadi Shodhana Pranayama</h4>
+                <p class="text-slate-500 mt-1">Alternate nostril breathing for Tridosha balance • 10 Mins</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 14. Reviews & Testimonials -->
+          <div id="tab-reviews-testimonials" class="tab-content space-y-3 text-xs">
+            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+              <div class="flex justify-between font-bold">
+                <span class="text-slate-900">Dr. Aditi Mukherjee (BAMS Intern)</span>
+                <span class="text-amber-600">⭐ 5.0</span>
+              </div>
+              <p class="text-slate-500 mt-0.5">National Institute of Ayurveda, Jaipur</p>
+              <p class="text-slate-600 mt-2 italic">"Outstanding bedside exposure in Panchakarma and Shalya OT with senior vaidyas."</p>
+            </div>
+          </div>
+
+          <!-- 15. Certificates -->
+          <div id="tab-certificates" class="tab-content space-y-3 text-xs">
+            <div class="p-4 bg-white rounded-xl border border-slate-200 flex justify-between items-center shadow-xs">
+              <div>
+                <span class="text-xl">🏆</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">Panchakarma Clinical Procedure Specialist</h4>
+                <p class="text-slate-500">Issued by National Institute of Ayurveda • ID: SB-2026-904</p>
+              </div>
+              <button onclick="alert('Verified Certificate ID: SB-2026-904 (Grade A+)')" class="px-3 py-1.5 bg-brand-600 text-white font-bold rounded">View Certificate 📄</button>
+            </div>
+          </div>
+
+          <!-- 16. Messages -->
+          <div id="tab-messages" class="tab-content space-y-3 text-xs">
+            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs space-y-3">
+              <div class="p-3 bg-brand-50 rounded-lg">
+                <span class="font-bold text-brand-900 block">Prof. Rajeshwar Sharma (10:45 AM)</span>
+                <p class="text-slate-700 mt-0.5">"Please bring the clinical logbook for patient PT-8942 during morning rounds."</p>
+              </div>
+              <div class="flex gap-2">
+                <input type="text" placeholder="Type a reply..." class="flex-1 px-3 py-2 bg-slate-100 rounded-lg outline-none border border-slate-200">
+                <button onclick="alert('Message sent to mentor!')" class="px-4 py-2 bg-brand-600 text-white font-bold rounded-lg">Send</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 17. Help / FAQ -->
+          <div id="tab-help-faq" class="tab-content space-y-3 text-xs">
+            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+              <h4 class="font-bold text-slate-900 text-sm">What is the mandatory attendance requirement?</h4>
+              <p class="text-slate-600 mt-1">As per NCISM rules, a minimum of 90% physical attendance across clinical rotations is mandatory for registration.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
+              <h4 class="font-bold text-slate-900 text-sm">When is the internship stipend credited?</h4>
+              <p class="text-slate-600 mt-1">Stipends are disbursed via Direct Benefit Transfer (DBT) by the 5th of every month.</p>
+            </div>
+          </div>
+
+          <!-- 18. My Profile -->
+          <div id="tab-my-profile" class="tab-content space-y-4 text-xs">
+            <div class="p-5 bg-white rounded-xl border border-slate-200 shadow-xs flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-2xl font-bold">
+                👨⚕️
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-slate-900">Dr. Rohan Sharma</h3>
+                <p class="text-brand-700 font-medium">BAMS Intern • Final Year</p>
+                <p class="text-slate-500 mt-0.5">Reg No: <b>SB-NCISM-2026-90412</b></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 19. Settings -->
+          <div id="tab-settings" class="tab-content space-y-4 text-xs">
+            <div class="p-5 bg-white rounded-xl border border-slate-200 shadow-xs space-y-3">
+              <div class="flex items-center justify-between">
+                <span>Emergency Shift Alerts (SMS)</span>
+                <input type="checkbox" checked class="w-4 h-4 text-brand-600">
+              </div>
+              <div class="flex items-center justify-between">
+                <span>Supervisor Approval Notifications</span>
+                <input type="checkbox" checked class="w-4 h-4 text-brand-600">
+              </div>
+              <button onclick="alert('Preferences saved!')" class="mt-2 px-4 py-2 bg-brand-600 text-white font-bold rounded-lg">Save Settings</button>
+            </div>
+          </div>
+
         </div>
 
-      </div>
+      </main>
 
     </div>
-  </section>
+
+  </div>
 
 
   <!-- ========================================================================= -->
-  <!-- FINAL CTA SECTION                                                         -->
+  <!-- SIMPLE MODAL                                                              -->
   <!-- ========================================================================= -->
-  <section class="py-16 bg-slate-900 text-white text-center">
-    <div class="max-w-3xl mx-auto px-4">
-      <h2 class="text-2xl sm:text-3xl font-extrabold mb-3">
-        Ready to build your career?
-      </h2>
-      <p class="text-slate-300 text-sm sm:text-base mb-6">
-        Join SkillBridge today to map your skills and unlock verified opportunities.
-      </p>
-      <button class="open-signup-modal px-8 py-3 text-sm font-bold text-slate-900 bg-white hover:bg-slate-100 rounded-lg shadow-sm transition-colors">
-        Get Started
-      </button>
-    </div>
-  </section>
-
-
-  <!-- ========================================================================= -->
-  <!-- FOOTER                                                                    -->
-  <!-- ========================================================================= -->
-  <footer id="contact" class="bg-slate-950 text-slate-400 text-xs py-8 border-t border-slate-800 mt-auto">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-      <div>
-        <span class="text-sm font-bold text-white block">SkillBridge</span>
-        <span class="text-[11px] text-slate-500">Smart India Hackathon (SIH26044)</span>
-      </div>
-      <div class="flex items-center gap-6">
-        <a href="#home" class="hover:text-white">Home</a>
-        <a href="#about" class="hover:text-white">About</a>
-        <a href="#features" class="hover:text-white">Features</a>
-        <a href="#contact" class="hover:text-white">Contact</a>
-      </div>
-      <div>
-        © 2026 SkillBridge. All rights reserved.
-      </div>
-    </div>
-  </footer>
-
-
-  <!-- ========================================================================= -->
-  <!-- AUTH MODAL (LOGIN / SIGN UP)                                              -->
-  <!-- ========================================================================= -->
-  <div id="auth-modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-    <div class="bg-white rounded-xl max-w-sm w-full p-6 shadow-xl border border-slate-200 relative">
+  <div id="action-modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50">
+    <div class="bg-white rounded-xl max-w-sm w-full p-5 shadow-xl border border-slate-200 relative">
       
-      <button id="modal-close-btn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg font-bold">
+      <button id="modal-close" class="absolute top-3 right-3 text-slate-400 hover:text-slate-700 text-lg font-bold">
         &times;
       </button>
 
-      <h3 id="modal-heading" class="text-lg font-bold text-slate-900 mb-1">Get Started</h3>
-      <p id="modal-subheading" class="text-xs text-slate-500 mb-4">Create your account to start mapping skills.</p>
+      <h3 class="text-base font-bold text-slate-900 mb-1">Add Clinical Entry</h3>
+      <p class="text-xs text-slate-500 mb-3">Fill out the quick details below.</p>
 
       <form id="modal-form" class="space-y-3 text-xs">
         <div>
-          <label class="block font-semibold text-slate-700 mb-1">I am a</label>
+          <label class="block font-semibold text-slate-700 mb-1">Title / Patient Diagnosis</label>
+          <input type="text" required placeholder="e.g. Sandhigata Vata" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:border-brand-600">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Department</label>
           <select class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:border-brand-600">
-            <option>Student</option>
-            <option>Institution / Faculty</option>
-            <option>Industry Recruiter</option>
+            <option>Kayachikitsa OPD</option>
+            <option>Panchakarma IPD</option>
+            <option>Shalya Tantra</option>
+            <option>Kaumarbhritya</option>
           </select>
         </div>
 
         <div>
-          <label class="block font-semibold text-slate-700 mb-1">Email</label>
-          <input type="email" required placeholder="name@example.com" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:border-brand-600">
+          <label class="block font-semibold text-slate-700 mb-1">Treatment / Notes</label>
+          <textarea rows="2" placeholder="Therapy administered..." class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:border-brand-600"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-2 font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-lg transition-colors">
+          Save Entry
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- AUTH MODAL (LOGIN & SIGN UP)                                              -->
+  <!-- ========================================================================= -->
+  <div id="auth-modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50">
+    <div class="bg-white rounded-xl max-w-sm w-full p-6 shadow-xl border border-slate-200 relative">
+      
+      <button id="auth-modal-close" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg font-bold">
+        &times;
+      </button>
+
+      <h3 id="auth-modal-title" class="text-lg font-bold text-slate-900 mb-1">Login to Portal</h3>
+      <p id="auth-modal-desc" class="text-xs text-slate-500 mb-4">Enter your credentials to access your SkillBridge dashboard.</p>
+
+      <form id="auth-form" class="space-y-3 text-xs">
+        <div id="auth-role-group">
+          <label class="block font-semibold text-slate-700 mb-1">I am a</label>
+          <select class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:border-brand-600">
+            <option>Student / Intern</option>
+            <option>Hospital Coordinator / Dean</option>
+            <option>Faculty / Senior Mentor</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Email / Student ID</label>
+          <input type="email" required placeholder="dr.rohan@example.com" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:border-brand-600">
         </div>
 
         <div>
@@ -378,72 +794,15 @@
           <input type="password" required placeholder="••••••••" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:border-brand-600">
         </div>
 
-        <button type="submit" class="w-full py-2.5 font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-lg transition-colors mt-2">
-          Continue
+        <button type="submit" id="auth-submit-btn" class="w-full py-2.5 font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-lg transition-colors mt-2">
+          Continue to Dashboard →
         </button>
       </form>
 
     </div>
   </div>
 
-  <!-- SCRIPT -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Mobile menu
-      const btn = document.getElementById('mobile-menu-btn');
-      const menu = document.getElementById('mobile-menu');
-      if (btn && menu) {
-        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-        menu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => menu.classList.add('hidden')));
-      }
-
-      // Modal
-      const modal = document.getElementById('auth-modal');
-      const modalHeading = document.getElementById('modal-heading');
-      const modalSubheading = document.getElementById('modal-subheading');
-      const modalClose = document.getElementById('modal-close-btn');
-
-      const openModal = (heading, sub) => {
-        if (!modal) return;
-        modalHeading.textContent = heading;
-        modalSubheading.textContent = sub;
-        modal.classList.add('open');
-      };
-
-      const closeModal = () => {
-        if (modal) modal.classList.remove('open');
-      };
-
-      document.querySelectorAll('.open-signup-modal').forEach(b => {
-        b.addEventListener('click', (e) => {
-          e.preventDefault();
-          openModal('Sign Up for SkillBridge', 'Select your role and create an account to begin.');
-        });
-      });
-
-      document.querySelectorAll('.open-login-modal').forEach(b => {
-        b.addEventListener('click', (e) => {
-          e.preventDefault();
-          openModal('Login to SkillBridge', 'Enter your credentials to access your dashboard.');
-        });
-      });
-
-      if (modalClose) modalClose.addEventListener('click', closeModal);
-      if (modal) {
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) closeModal();
-        });
-      }
-
-      const form = document.getElementById('modal-form');
-      if (form) {
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          alert('Success! Authentication complete.');
-          closeModal();
-        });
-      }
-    });
-  </script>
+  <!-- JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>

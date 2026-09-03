@@ -1,4 +1,45 @@
-/* Clean, Simple & Modern Stylesheet */
+/* ==========================================================================
+   AyurLearn - Modern Ayurveda Clinical Training & Internship Management System
+   Clean, Premium, Trustworthy & Accessible Stylesheet
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+:root {
+  /* Common Palette */
+  --bg-main: #f8fafc;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-subtle: #e2e8f0;
+  --card-bg: #ffffff;
+  
+  /* Role 1: Student (Sage / Forest Green) */
+  --student-primary: #059669;
+  --student-primary-dark: #064e3b;
+  --student-accent: #10b981;
+  --student-light: #ecfdf5;
+  --student-border: #a7f3d0;
+  
+  /* Role 2: Training Centre (Teal / Ocean Green) */
+  --centre-primary: #0d9488;
+  --centre-primary-dark: #115e59;
+  --centre-accent: #14b8a6;
+  --centre-light: #f0fdfa;
+  --centre-border: #99f6e4;
+  
+  /* Role 3: Institution (Royal Indigo / Slate Purple) */
+  --inst-primary: #6366f1;
+  --inst-primary-dark: #3730a3;
+  --inst-accent: #818cf8;
+  --inst-light: #eef2ff;
+  --inst-border: #c7d2fe;
+  
+  /* Ayurveda Warm & Gold Accents */
+  --ayur-gold: #d97706;
+  --ayur-gold-light: #fef3c7;
+  --ayur-herb: #22c55e;
+  --ayur-cream: #faf7f2;
+}
 
 * {
   box-sizing: border-box;
@@ -8,38 +49,127 @@
 
 body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Sidebar navigation item active state */
+.font-serif-ayur {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Glassmorphism & Cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.glass-card-dark {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-hover-effect {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 6px 12px -4px rgba(15, 23, 42, 0.04);
+}
+
+/* Botanical Subtle Patterns */
+.bg-botanical-subtle {
+  background-color: #f8fafc;
+  background-image: radial-gradient(#10b981 0.75px, transparent 0.75px), radial-gradient(#0d9488 0.75px, #f8fafc 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  background-opacity: 0.05;
+}
+
+.bg-cream-warm {
+  background-color: #faf8f5;
+}
+
+.bg-gradient-ayur-hero {
+  background: radial-gradient(100% 120% at 50% 0%, #ecfdf5 0%, #f0fdfa 40%, #ffffff 100%);
+}
+
+.bg-gradient-student {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 60%, #047857 100%);
+}
+
+.bg-gradient-centre {
+  background: linear-gradient(135deg, #115e59 0%, #0f766e 60%, #0d9488 100%);
+}
+
+.bg-gradient-inst {
+  background: linear-gradient(135deg, #312e81 0%, #3730a3 60%, #4f46e5 100%);
+}
+
+/* Sidebar Styling & Dynamic Active States */
 .sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #475569;
   transition: all 0.15s ease-in-out;
+  text-decoration: none;
+  border: 1px solid transparent;
 }
 
 .sidebar-link:hover {
   background-color: #f1f5f9;
-  color: #047857;
+  color: #0f172a;
 }
 
-.sidebar-link.active {
+/* Student Active */
+.theme-student .sidebar-link.active {
   background-color: #ecfdf5;
   color: #047857;
   font-weight: 600;
+  border-color: #a7f3d0;
 }
 
-/* Dashboard Section switching */
+/* Centre Active */
+.theme-centre .sidebar-link.active {
+  background-color: #f0fdfa;
+  color: #0d9488;
+  font-weight: 600;
+  border-color: #99f6e4;
+}
+
+/* Institution Active */
+.theme-institution .sidebar-link.active {
+  background-color: #eef2ff;
+  color: #4f46e5;
+  font-weight: 600;
+  border-color: #c7d2fe;
+}
+
+/* Tab Content Visibility */
 .tab-content {
   display: none;
 }
 
 .tab-content.active {
   display: block;
-  animation: fadeIn 0.2s ease-in-out;
+  animation: fadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -47,14 +177,175 @@ body {
   }
 }
 
-/* Simple Modal */
-.modal {
+/* Modal Handling */
+.modal-overlay {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-.modal.open {
+.modal-overlay.open {
   opacity: 1;
   visibility: visible;
+}
+
+.modal-container {
+  transform: scale(0.96) translateY(8px);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.open .modal-container {
+  transform: scale(1) translateY(0);
+}
+
+/* Toast Notifications */
+#toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 380px;
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: all 0.2s ease;
+}
+
+.toast.toast-success {
+  border-left: 4px solid #10b981;
+}
+
+.toast.toast-info {
+  border-left: 4px solid #0d9488;
+}
+
+.toast.toast-purple {
+  border-left: 4px solid #6366f1;
+}
+
+.toast.toast-warning {
+  border-left: 4px solid #f59e0b;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Floating Role Switcher Pill */
+.floating-role-switcher {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0.35rem 0.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Custom Scrollbar for sidebars and tables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Pulse Animation */
+.pulse-green {
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Badges */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Smooth view transitions */
+.app-view {
+  display: none;
+}
+
+.app-view.active-view {
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* Certificate simulation printable look */
+.certificate-frame {
+  border: 12px double #064e3b;
+  background: #fffdf9;
+  position: relative;
+}
+
+.certificate-frame::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid #d97706;
+  pointer-events: none;
 }
